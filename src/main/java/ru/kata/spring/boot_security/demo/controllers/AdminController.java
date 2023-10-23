@@ -32,15 +32,16 @@ public class AdminController {
     @GetMapping()
     public String users(Model model) {
         model.addAttribute("users", userService.showUsers());
+        model.addAttribute("roles", roleService.getRoles());
         return "admin";
     }
 
-    @PatchMapping("/{id}/edit")
-    public String edit(ModelMap model, @PathVariable("id") int id) {
-        model.addAttribute("roles", roleService.getRoles());
-        model.addAttribute("user", userService.showById(id));
-        return "edit";
-    }
+//    @PatchMapping("/{id}/edit")
+//    public String edit(ModelMap model, @PathVariable("id") int id) {
+//        model.addAttribute("roles", roleService.getRoles());
+//        model.addAttribute("user", userService.showById(id));
+//        return "edit";
+//    }
 
     @GetMapping("/new")
     public String newUser(Model model) {
@@ -55,13 +56,13 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/edit/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id ) {
         userService.update(user, id);
         return "redirect:/admin";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.delete(id);
         return "redirect:/admin";
