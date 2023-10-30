@@ -2,35 +2,34 @@ package ru.kata.spring.boot_security.demo.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
-import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
 public class RoleDaoImpl implements RoleDao {
 
-    private final RoleRepository roleRepository;
+    private final EntityManager entityManager;
 
     @Autowired
-    public RoleDaoImpl(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
+    public RoleDaoImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     @Override
     public List<Role> getRoles() {
-        return roleRepository.findAll();
+        return entityManager.createQuery("FROM Role").getResultList();
+//        return entityManager.createQuery("select r from Role r", Role.class).getResultList();
     }
 
     @Override
     public Role getRole(int id) {
-        return roleRepository.getById((long) id);
+        return entityManager.find(Role.class, id);
     }
 
     @Override
-    @Transactional
     public void save(Role role) {
-        roleRepository.save(role);
+        entityManager.persist(role);
     }
 }

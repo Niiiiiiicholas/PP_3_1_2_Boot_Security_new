@@ -2,9 +2,6 @@ package ru.kata.spring.boot_security.demo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService{
 
     private final UserDao userDao;
     private final PasswordEncoder passwordEncoder;
@@ -27,11 +24,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public List<User> showUsers() {
         return userDao.showUsers();
     }
 
     @Override
+    @Transactional
     public User showById(long id) {
         return userDao.showById(id);
     }
@@ -54,16 +53,5 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     public void delete(Long id) {
         userDao.delete(id);
-    }
-
-
-    @Override
-    public User findByUsername(String username) {
-        return userDao.findByUsername(username);
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        return userDao.loadUserByUsername(name);
     }
 }

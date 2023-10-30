@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.controllers;
+package ru.kata.spring.boot_security.demo.init;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -37,6 +37,7 @@ public class testUsers {
         roles.add(role_user);
         return roles;
     }
+
     @Transactional
     @Bean
     public void init() {

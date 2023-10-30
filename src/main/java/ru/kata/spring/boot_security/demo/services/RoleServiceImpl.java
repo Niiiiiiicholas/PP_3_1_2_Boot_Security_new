@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.RoleDao;
 import ru.kata.spring.boot_security.demo.model.Role;
 
+
 import java.util.List;
 
 @Service
@@ -14,19 +15,19 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleDao roleDao;
 
-
-@Autowired
+    @Autowired
     public RoleServiceImpl(RoleDao roleDao) {
         this.roleDao = roleDao;
     }
 
-
     @Override
+    @Transactional
     public List<Role> getRoles() {
         return roleDao.getRoles();
     }
 
     @Override
+    @Transactional
     public Role getRole(int id) {
         return roleDao.getRole(id);
     }
