@@ -10,7 +10,9 @@ import ru.kata.spring.boot_security.demo.services.UserService;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class testUsers {
@@ -26,14 +28,14 @@ public class testUsers {
         this.userService = userService;
     }
 
-    public List<Role> roleAdmin() {
-        List<Role> roles = new ArrayList<>();
+    public Set<Role> roleAdmin() {
+        Set<Role> roles = new HashSet<>();
         roles.add(role_admin);
         return roles;
     }
 
-    public List<Role> roleUser() {
-        List<Role> roles = new ArrayList<>();
+    public Set<Role> roleUser() {
+        Set<Role> roles = new HashSet<>();
         roles.add(role_user);
         return roles;
     }
